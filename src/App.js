@@ -1,6 +1,14 @@
 
 import './App.css';
+import data from './data.json';
 
+// eslint-disable-next-line
+const Mycomponent = ({pokeman}) => (
+  <tr>
+    <td>{pokeman.name.english}</td>
+    <td>{pokeman.type.join(",")}sample</td>
+  </tr>
+);
 function App() {
   return (
     <div 
@@ -18,10 +26,9 @@ function App() {
             </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>sample</td>
-            <td>sample</td>
-          </tr>
+          {data.slice(0,20).map((poke) => (
+            <Mycomponent pokeman={poke} key={poke.id} />
+          ))}
         </tbody>
        </table>
     </div>
