@@ -1,5 +1,6 @@
 
 import './App.css';
+import data from './data.json';
 
 function App() {
   return (
@@ -18,10 +19,13 @@ function App() {
             </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>sample</td>
-            <td>sample</td>
+          {data.slice(0,20).map((poke) =>(
+            <tr keys={poke.id}>
+            <td>{poke.name.english}</td>
+            <td>{poke.type.join(",")}sample</td>
           </tr>
+
+          ))}
         </tbody>
        </table>
     </div>
