@@ -1,7 +1,7 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
-import data from './data.json';
+// import data from './data.json';
 
 // eslint-disable-next-line
 const Mycomponent = ({pokeman, onselect}) => (
@@ -27,10 +27,17 @@ const PokemanInfo = ({name, base}) => (
       ))}
     </table>
   </div>
-)
+);
 export default function App() {
   const [filter, filterSet] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
+  const [pokeman, Setpokeman] = useState([]);
+
+  useEffect(() =>{
+    fetch("http://localhost:3000/client/data.json")
+    .then((res) => res.json())
+    .then((data) => Setpokeman(data))
+  },[]);
   return (
     <div 
       style={{
@@ -58,7 +65,7 @@ export default function App() {
             </tr>
         </thead>
         <tbody>
-          {data
+          {pokeman
           .filter((datafil)=> datafil.name.english.toLowerCase().includes(filter.toLowerCase()))
           .slice(0,20).map((poke) => (
             <Mycomponent pokeman={poke} key={poke.id} onselect={(pokeman) =>setSelectedItem(pokeman)}/>
