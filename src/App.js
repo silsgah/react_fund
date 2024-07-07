@@ -1,45 +1,49 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-//import data from './data/data.json';
+import Avatar from "./Avatar";
+import Gallery from "./Gallery";
+import {Profile} from "./Gallery";
+import PackingList from "./Demo";
+import Brown from "./Brown";
 
-function App() {
- const [pokeman, Setpokem] = useState([]);
- const [statefilter, setFilter] = useState("");
- 
-  useEffect(() =>{
-   fetch("http://localhost:3000/data.json")
-   .then((res) => res.json())
-   .then((data) => Setpokem(data));
-  },[]);
-  return (
-    <div style={{
-      margin:"auto",
-      paddgingTop: '1rem',
-      width:800
-    }}>
-      <input  
-      onChange={(evt)=>setFilter((evt.target.value))}
-      value={statefilter}/>
-     <table width="100%">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        {pokeman
-        .filter((datfile)=> datfile.name.english.toLowerCase().includes(statefilter.toLowerCase()))
-        .map((indiviArray) =>(
-          <tr>
-          <td>{indiviArray.name.english}</td>
-          <td>{indiviArray.type.join(",")}</td>
-        </tr>
-        ))}
-      </tbody>
-     </table>
-    </div>
+//JSX SYNTAX-JAVASCRIPT AND HMTL
+const today = new Date();
+
+function formatDate(date){
+  return new Intl.DateTimeFormat(
+    'en-US',
+    {weekday: 'long'}
+  ).format(date);
+}
+const people = [
+  'Creola Katherine Johnson: mathematician',
+  'Mario José Molina-Pasquel Henríquez: chemist',
+  'Mohammad Abdus Salam: physicist',
+  'Percy Lavon Julian: chemist',
+  'Subrahmanyan Chandrasekhar: astrophysicist'
+];
+function List(){
+  const listems = people.map((x, i) => 
+   <li>
+   {i}  {x}
+  </li>
   );
+  return <ul>{listems}</ul>
+}
+export default function App(props){
+  const name = "Picture Gallery";
+  const img = "https://i.imgur.com/1bX5QH6.jpg";
+  const img2 = "https://i.imgur.com/1bX5QH7.jpg";
+  
+ return (
+  <>
+  <PackingList />
+  <List />
+  <Brown />
+  {/* <Avatar {...props}/>
+  <Avatar person={img2} size={100}/> */}
+  {/* <h1>{name} of me for {formatDate(today)}</h1>
+  <Gallery />
+  <Profile /> */}
+   </>
+ )
 }
 
-export default App;
